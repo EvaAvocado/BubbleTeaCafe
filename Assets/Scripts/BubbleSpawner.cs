@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,10 +11,12 @@ public class BubbleSpawner : MonoBehaviour
     public Transform spawnParent;
     public int maxBubbles = 5;
     public Button mainButton;
-    public DropSpawner dropSpawner;
+    public ChooseTea chooseTea;
+    public TMP_Text text;
     
     private int _currentBubbleCount; // Счётчик активных тапиок
     private bool _isSpawning;
+    private int _counter;
     
     private List<Bubble> _bubbles = new List<Bubble>();
 
@@ -21,6 +24,9 @@ public class BubbleSpawner : MonoBehaviour
     {
         // Спавним первую тапиоку при включении
         SpawnBubble();
+        text.text = maxBubbles + " Bubbles Left";
+        text.gameObject.SetActive(true);
+        _counter = maxBubbles;
     }
 
     private void SpawnBubble()
@@ -30,7 +36,7 @@ public class BubbleSpawner : MonoBehaviour
             _isSpawning = true;
             // Создаём новую тапиоку
             GameObject bubble = Instantiate(bubblePrefab, spawnParent.position, Quaternion.identity, spawnParent);
-
+            
             // Получаем компонент Bubble
             Bubble bubbleScript = bubble.GetComponent<Bubble>();
             bubbleScript.button = mainButton;
@@ -54,6 +60,9 @@ public class BubbleSpawner : MonoBehaviour
 
     private IEnumerator SpawnBubbleWithDelay()
     {
+        _counter--;
+        text.text = _counter + " Bubbles Left";
+        
         // Задержка перед спавном новой тапиоки (1 секунда)
         yield return new WaitForSeconds(0.5f);
 
@@ -67,9 +76,10 @@ public class BubbleSpawner : MonoBehaviour
         }
        else
        {
-           dropSpawner.gameObject.SetActive(true);
+           chooseTea.gameObject.SetActive(true);
+           text.gameObject.SetActive(false);
+           mainButton.interactable = false;
            enabled = false;
-           mainButton.interactable = true;
        }
     }
 

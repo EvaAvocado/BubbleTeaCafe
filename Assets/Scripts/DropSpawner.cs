@@ -1,5 +1,6 @@
 ﻿using System;
 using DefaultNamespace;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -19,6 +20,8 @@ public class DropSpawner : MonoBehaviour
     public GameObject shaker;
     public Transform spawnPont;
 
+    private Color _waterColor;
+    private Color _milkColor;
     private float _cooldown = 0;
     private Camera _mainCamera;
     private int _counter;
@@ -30,12 +33,22 @@ public class DropSpawner : MonoBehaviour
     private bool _isPressed;
 
     public Action OnReady;
+    private MixerSlider _mixerSlider;
+    private Button _button;
+
+    private void Start()
+    {
+        _button = mainButton.GetComponent<Button>();
+        _mixerSlider = shaker.GetComponent<MixerSlider>();
+    }
 
     private void OnEnable()
     {
         _mainCamera = Camera.main;
         contour.SetActive(true);
         mainButton.OnMouseEvent += OnButtonPressed;
+        _waterColor = waterMesh.material.color;
+        _milkColor = milkMesh.material.color;
     }
 
     private void OnDisable()
@@ -59,6 +72,7 @@ public class DropSpawner : MonoBehaviour
         if (!_isWaterFlowed && _isFirstTime && !_isPressed)
         {
             // Кнопка не нажата в первый раз - отключаем воду
+            contour.SetActive(false);
             _isWaterFlowed = true;
             _counter = 0;
         }
@@ -91,11 +105,11 @@ public class DropSpawner : MonoBehaviour
 
         if (_counter >= 50 && _isWaterFlowed)
         {
+            _button.gameObject.SetActive(false);
             shaker.SetActive(true);
-            _isColorChange = true;
         }
 
-        if (_counter >= 50 && _t < 1 && _isColorChange && _isWaterFlowed)
+        if (_counter >= 50 && _t < 1.1f && _isColorChange && _isWaterFlowed)
         {
             _cooldown -= Time.deltaTime;
             while (_cooldown < 0)
@@ -104,30 +118,51 @@ public class DropSpawner : MonoBehaviour
                 switch (water.color)
                 {
                     case GameConfig.WaterColor.Brown:
-                        waterMesh.material.color = Color.Lerp(waterMesh.material.color, new Color(0.6f, 0.4471f, 0.5059f), _t);
-                        milkMesh.material.color = Color.Lerp(milkMesh.material.color, new Color(0.6f, 0.4471f, 0.5059f), _t);
+                        waterMesh.material.color = Color.Lerp(_waterColor, new Color(0.6f, 0.4471f, 0.5059f), _t);
+                        milkMesh.material.color = Color.Lerp(_milkColor, new Color(0.6f, 0.4471f, 0.5059f), _t);
+                        // Закончился шейк! Можно к новому этапу
+                        if (waterMesh.material.color == new Color(0.6f, 0.4471f, 0.5059f))
+                        {
+                            Ready();
+                        }
                         break;
                     case GameConfig.WaterColor.White:
-                        waterMesh.material.color = Color.Lerp(waterMesh.material.color, new Color(0.9725f, 0.8549f, 0.8510f), _t);
-                        milkMesh.material.color = Color.Lerp(milkMesh.material.color, new Color(0.9725f, 0.8549f, 0.8510f), _t);
+                        waterMesh.material.color = Color.Lerp(_waterColor, new Color(0.9725f, 0.8549f, 0.8510f), _t);
+                        milkMesh.material.color = Color.Lerp(_milkColor, new Color(0.9725f, 0.8549f, 0.8510f), _t);
+                        // Закончился шейк! Можно к новому этапу
+                        if (waterMesh.material.color == new Color(0.9725f, 0.8549f, 0.8510f))
+                        {
+                            Ready();
+                        }
                         break;
                     case GameConfig.WaterColor.Pink:
-                        waterMesh.material.color = Color.Lerp(waterMesh.material.color, new Color(0.9529f, 0.3647f, 0.5804f), _t);
-                        milkMesh.material.color = Color.Lerp(milkMesh.material.color, new Color(0.9529f, 0.3647f, 0.5804f), _t);
+                        waterMesh.material.color = Color.Lerp(_waterColor, new Color(0.9529f, 0.3647f, 0.5804f), _t);
+                        milkMesh.material.color = Color.Lerp(_milkColor, new Color(0.9529f, 0.3647f, 0.5804f), _t);
+                        // Закончился шейк! Можно к новому этапу
+                        if (waterMesh.material.color == new Color(0.9529f, 0.3647f, 0.5804f))
+                        {
+                            Ready();
+                        }
                         break;
                 }
                 
-                
-                _t += 0.004f;
+                _t += 0.05f;
+                //print(_t);
                 _counter++;
             }
         }
+    }
 
-        // Закончился шейк! Можно к новому этапу
-        if (_t >= 1)
-        {
-            contour.SetActive(false);
-            shaker.SetActive(false);
-        }
+    private void Ready()
+    {
+        contour.SetActive(false);
+        shaker.SetActive(false);
+        gameObject.SetActive(false);
+        _mixerSlider.glass.DORotate(Vector3.zero, 0.8f)
+            .SetEase(Ease.InOutSine) // Добавляем плавность
+            .OnComplete(() =>
+            {
+                Debug.Log("Поворот завершён!");
+            });
     }
 }

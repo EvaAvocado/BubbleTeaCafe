@@ -27,16 +27,16 @@ namespace MaskDrawer.Assets
             switch (topping)
             {
                 case GameConfig.Topping.Syrup1:
-                    fillThreshold = 2.045766f;
+                    fill = 2.045766f;
                     break;
                 case GameConfig.Topping.Syrup2:
-                    fillThreshold = 1.909336f;
+                    fill = 1.909336f;
                     break;
                 case GameConfig.Topping.Syrup3:
                     fill = 1.514902f;
                     break;
             }
-            fillThreshold = fill * 90 / 100;
+            fillThreshold = fill * 86 / 100;
         }
 
         void Update()

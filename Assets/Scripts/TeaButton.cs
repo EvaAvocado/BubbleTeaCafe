@@ -4,21 +4,23 @@ using UnityEngine.EventSystems;
 
 namespace DefaultNamespace
 {
-    public class MainButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+    public class TeaButton: MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         private bool myBool;
-        public Action<bool> OnMouseEvent;
+        public GameConfig.WaterColor waterColor;
+        
+        public Action<bool, GameConfig.WaterColor> OnMouseEvent;
 
         public void OnPointerDown(PointerEventData eventData)
         {
             myBool = true;
-            OnMouseEvent?.Invoke(myBool);
+            OnMouseEvent?.Invoke(myBool, waterColor);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
             myBool = false;
-            OnMouseEvent?.Invoke(myBool);
+            OnMouseEvent?.Invoke(myBool, waterColor);
         }
     }
 }
