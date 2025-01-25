@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Water 1
-  m_Shader: {fileID: 4800000, guid: 2f9f3c69a388eb543b32bf970e32ae58, type: 3}
+  m_Name: BackgroundMaterial
+  m_Shader: {fileID: 4800000, guid: 9ecd958dcfb480e49a590fba99661101, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -24,12 +24,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 8400000, guid: be9e33500ef6f264686e638c38a24c19, type: 2}
+        m_Texture: {fileID: 8400000, guid: 04ac4eb0661f6bf43a639febe5720472, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Cutoff: 0.4
-    m_Colors:
-    - _Color: {r: 0.40000004, g: 0.18823531, b: 0.27058825, a: 1}
+    - _Cutoff: 0.5
+    m_Colors: []
   m_BuildTextureStacks: []

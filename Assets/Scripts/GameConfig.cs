@@ -15,5 +15,13 @@ namespace DefaultNamespace
             Syrup2,
             Syrup3
         }
+        
+        public enum WaterColor
+        {
+            None,
+            Brown,
+            White,
+            Pink
+        }
     }
 }
