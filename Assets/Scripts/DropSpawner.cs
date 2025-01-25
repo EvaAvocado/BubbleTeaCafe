@@ -15,10 +15,16 @@ public class DropSpawner : MonoBehaviour
     private Camera _mainCamera;
     private int _counter;
     private float _t;
+    private bool _isColorChange;
 
     private void Start()
     {
         _mainCamera = Camera.main;
+    }
+
+    public void SetIsColorChange(bool value)
+    {
+        _isColorChange = value;
     }
 
     private void Update()
@@ -47,7 +53,7 @@ public class DropSpawner : MonoBehaviour
             }
         }
 
-        if (_counter >= 200 && _t < 1)
+        if (_counter >= 200 && _t < 1 && _isColorChange)
         {
             _cooldown -= Time.deltaTime;
             while (_cooldown < 0)
@@ -70,7 +76,7 @@ public class DropSpawner : MonoBehaviour
                 }
                 
                 
-                _t += 0.02f;
+                _t += 0.004f;
                 _counter++;
             }
         }
