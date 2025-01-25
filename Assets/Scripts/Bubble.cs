@@ -16,21 +16,26 @@ public class Bubble : MonoBehaviour
 
     private void Start()
     {
+        transform.position = new Vector3(-moveRange, transform.position.y, transform.position.z);
+        moveSpeed = UnityEngine.Random.Range(moveSpeed - 4f, moveSpeed + 4f);
+
         button.onClick.AddListener(OnClick);
         rb = GetComponent<Rigidbody2D>();
     }
 
     private void OnClick()
     {
-        // При нажатии на кнопку активируем физику падения
-        _isFalling = true;
-        
         // Останавливаем движение по оси X, чтобы тапиока падала прямо вниз
         rb.velocity = new Vector2(0, rb.velocity.y);
         
         rb.bodyType = RigidbodyType2D.Dynamic;
-        
-        OnFall?.Invoke(); // Вызываем событие падения
+
+        if (!_isFalling)
+        {
+            _isFalling = true;
+            OnFall?.Invoke(); // Вызываем событие падения
+        }
+       
     }
     
     private void FixedUpdate()

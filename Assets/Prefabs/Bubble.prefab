@@ -162,6 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 0}
-  moveSpeed: 15
+  moveSpeed: 16
   rb: {fileID: 6085504638892558754}
   moveRange: 4.25

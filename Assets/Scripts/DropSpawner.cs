@@ -1,5 +1,9 @@
-﻿using DefaultNamespace;
+﻿using System;
+using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class DropSpawner : MonoBehaviour
 {
@@ -9,51 +13,89 @@ public class DropSpawner : MonoBehaviour
     public GameObject milkParent;
     public MeshRenderer waterMesh;
     public MeshRenderer milkMesh;
-    public Water water; 
+    public Water water;
+    public MainButton mainButton;
+    public GameObject contour;
+    public GameObject shaker;
+    public Transform spawnPont;
 
     private float _cooldown = 0;
     private Camera _mainCamera;
     private int _counter;
     private float _t;
     private bool _isColorChange;
+    
+    private bool _isFirstTime = false;    // Флаг для отслеживания молока
+    private bool _isWaterFlowed = false;   // Флаг для отслеживания воды
+    private bool _isPressed;
 
-    private void Start()
+    public Action OnReady;
+
+    private void OnEnable()
     {
         _mainCamera = Camera.main;
+        contour.SetActive(true);
+        mainButton.OnMouseEvent += OnButtonPressed;
+    }
+
+    private void OnDisable()
+    {
+        mainButton.OnMouseEvent -= OnButtonPressed;
     }
 
     public void SetIsColorChange(bool value)
     {
         _isColorChange = value;
     }
-
+    
+    private void OnButtonPressed(bool value)
+    {
+        _isPressed = value;
+    }
+    
     private void Update()
     {
-        if (Input.GetMouseButton(0) && _counter < 150)
+        // Проверяем, если кнопка НЕ нажата
+        if (!_isWaterFlowed && _isFirstTime && !_isPressed)
         {
-            _cooldown -= Time.deltaTime;
-            while (_cooldown < 0)
-            {
-                _cooldown += 0.02f;
-                Instantiate(dropPrefab, (Vector2)_mainCamera.ScreenToWorldPoint(Input.mousePosition)+Random.insideUnitCircle*.2f, Quaternion.identity, dropParent.transform);
-                _counter++;
-                print(_counter);
-            }
+            // Кнопка не нажата в первый раз - отключаем воду
+            _isWaterFlowed = true;
+            _counter = 0;
         }
         
-        if (Input.GetMouseButton(0) && _counter is >= 150 and < 200)
+        if (_counter < 350 && _isPressed && !_isWaterFlowed)
         {
             _cooldown -= Time.deltaTime;
             while (_cooldown < 0)
             {
                 _cooldown += 0.02f;
-                Instantiate(milkPrefab, (Vector2)_mainCamera.ScreenToWorldPoint(Input.mousePosition)+Random.insideUnitCircle*.2f, Quaternion.identity, milkParent.transform);
+                Instantiate(dropPrefab, new Vector2(spawnPont.position.x, spawnPont.position.y)+Random.insideUnitCircle*.2f, Quaternion.identity, dropParent.transform);
                 _counter++;
-                print(_counter);
+                //print(_counter);
+            }
+
+            _isFirstTime = true;
+        }
+        
+        if (Input.GetMouseButton(0) && _counter < 50 && _isPressed && _isWaterFlowed)
+        {
+            _cooldown -= Time.deltaTime;
+            while (_cooldown < 0)
+            {
+                _cooldown += 0.02f;
+                Instantiate(milkPrefab, new Vector2(spawnPont.position.x, spawnPont.position.y)+Random.insideUnitCircle*.2f, Quaternion.identity, milkParent.transform);
+                _counter++;
+                //print(_counter);
             }
         }
 
-        if (_counter >= 200 && _t < 1 && _isColorChange)
+        if (_counter >= 50 && _isWaterFlowed)
+        {
+            shaker.SetActive(true);
+            _isColorChange = true;
+        }
+
+        if (_counter >= 50 && _t < 1 && _isColorChange && _isWaterFlowed)
         {
             _cooldown -= Time.deltaTime;
             while (_cooldown < 0)
@@ -79,6 +121,13 @@ public class DropSpawner : MonoBehaviour
                 _t += 0.004f;
                 _counter++;
             }
+        }
+
+        // Закончился шейк! Можно к новому этапу
+        if (_t >= 1)
+        {
+            contour.SetActive(false);
+            shaker.SetActive(false);
         }
     }
 }

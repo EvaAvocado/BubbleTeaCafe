@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,8 +10,12 @@ public class BubbleSpawner : MonoBehaviour
     public Transform spawnParent;
     public int maxBubbles = 5;
     public Button mainButton;
+    public DropSpawner dropSpawner;
     
     private int _currentBubbleCount; // Счётчик активных тапиок
+    private bool _isSpawning;
+    
+    private List<Bubble> _bubbles = new List<Bubble>();
 
     private void OnEnable()
     {
@@ -19,8 +25,9 @@ public class BubbleSpawner : MonoBehaviour
 
     private void SpawnBubble()
     {
-        if (_currentBubbleCount < maxBubbles)
+        if (!_isSpawning)
         {
+            _isSpawning = true;
             // Создаём новую тапиоку
             GameObject bubble = Instantiate(bubblePrefab, spawnParent.position, Quaternion.identity, spawnParent);
 
@@ -30,14 +37,11 @@ public class BubbleSpawner : MonoBehaviour
 
             // Увеличиваем счётчик тапиок
             _currentBubbleCount++;
+            //print(_currentBubbleCount);
 
             // Подписываемся на событие падения тапиоки
             bubbleScript.OnFall += HandleBubbleFall;
-        }
-
-        if (_currentBubbleCount == maxBubbles)
-        {
-            mainButton.interactable = true;
+            _bubbles.Add(bubbleScript);
         }
     }
 
@@ -54,7 +58,29 @@ public class BubbleSpawner : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         // Спавним новую тапиоку
-        SpawnBubble();
-        mainButton.interactable = true;
+        
+       if (_currentBubbleCount != maxBubbles)
+        {
+            _isSpawning = false;
+            SpawnBubble();
+            mainButton.interactable = true;
+        }
+       else
+       {
+           dropSpawner.gameObject.SetActive(true);
+           enabled = false;
+           mainButton.interactable = true;
+       }
+    }
+
+    private void OnDisable()
+    {
+        foreach (var bubble in _bubbles)
+        {
+            if (bubble != null)
+            {
+                bubble.OnFall -= HandleBubbleFall;
+            }
+        }
     }
 }
