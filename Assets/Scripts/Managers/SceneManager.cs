@@ -32,7 +32,11 @@ public class SceneManager : MonoBehaviour
             //Debug.Log("Scene loaded!");
 
             if (CheckerManager.Instance != null) CheckerManager.Instance.isScene1_1 = false;
-            if (CheckerManager.Instance != null) CheckerManager.Instance.isSampleScene = false;
+            if (CheckerManager.Instance != null)
+            {
+                CheckerManager.Instance.isSampleScene = false;
+                CheckerManager.Instance._isReady = false;
+            }
 
             if (sceneName == "SampleScene")
             {
@@ -43,7 +47,6 @@ public class SceneManager : MonoBehaviour
             else if (sceneName == "Scene 1-1")
             {
                 CheckerManager.Instance.isScene1_1 = true;
-                CheckerManager.Instance.teaReady.OnStart();
                 Cat.Instance.MoveCenterCat();
                 TeaManager.Instance.gameObject.SetActive(false);
             }
@@ -56,27 +59,33 @@ public class SceneManager : MonoBehaviour
             
             if (CheckerManager.Instance != null)
             {
-                if (CheckerManager.Instance.isScene1_1 && !CheckerManager.Instance.isDayChanged)
+                /*if (CheckerManager.Instance.isScene1_1 && !CheckerManager.Instance.isDayChanged)
                 {
                     CheckerManager.Instance.teaReady.Ready();
-                }
+                }*/
+            }
+
+            if (this.sceneName == "Scene 3")
+            {
+                CheckerManager.Instance.moneyAll.gameObject.SetActive(false);
+                CheckerManager.Instance.moneyAll2.gameObject.SetActive(false);
             }
 
 
             print(1 + sceneName);
 
-            if (!gameObject.GetComponent<Cat>()) Destroy(gameObject);
+            if (!gameObject.GetComponent<Cat>() && !gameObject.GetComponent<CheckerManager>() && !gameObject.CompareTag("DontDestroy")) Destroy(gameObject);
         }
     }
 
-    public void LoadScene(string name)
+    public void LoadScene(string name, GameObject gameObject)
     {
         DontDestroyOnLoad(gameObject);
         if (CheckerManager.Instance != null) CheckerManager.Instance._timer.Stop();
-        StartCoroutine(WaitForSceneLoad2(name));
+        StartCoroutine(WaitForSceneLoad2(name, gameObject));
     }
 
-    private IEnumerator WaitForSceneLoad2(string name)
+    private IEnumerator WaitForSceneLoad2(string name, GameObject gameObject)
     {
         // Загружаем сцену асинхронно
         AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
@@ -91,7 +100,7 @@ public class SceneManager : MonoBehaviour
         Debug.Log("Scene loaded!");
         if (CheckerManager.Instance != null) CheckerManager.Instance.FindCamera();
 
-        Destroy(gameObject);
+        if (!gameObject.GetComponent<Cat>() && !gameObject.GetComponent<CheckerManager>()) Destroy(gameObject);
 
         print(2 + name);
     }

@@ -41,16 +41,16 @@ namespace Toppings
                 {
                     // Если печенье в зоне предмета item, ставим его в координаты endPosition
                     transform.DOLocalMove(endPosition, 5f).SetSpeedBased().SetEase(Ease.OutCubic);
-                    cookieManager._counter++;
+                    
                 }
                 else
                 {
                     // Если нет, возвращаем на исходное место
                     transform.DOLocalMove(_startPosition, 10f).SetSpeedBased().SetEase(Ease.OutCubic);
-                    cookieManager._counter--;
+                    
                 }
                 
-                cookieManager.CountCookie();
+                
             }
         }
 
@@ -67,7 +67,9 @@ namespace Toppings
             // Проверяем, если вошли в зону предмета с тегом item
             if (collision.CompareTag("Item"))
             {
+                cookieManager._counter++;
                 _targetItem = collision.transform;
+                cookieManager.CountCookie();
             }
         }
 
@@ -78,6 +80,7 @@ namespace Toppings
             if (collision.CompareTag("Item") && _targetItem == collision.transform)
             {
                 _targetItem = null;
+                cookieManager._counter--;
             }
         }
 

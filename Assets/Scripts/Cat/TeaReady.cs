@@ -18,6 +18,8 @@ public class TeaReady : MonoBehaviour
 
     public void Ready()
     {
+        OnStart();
+        if (tea == null || cat == null) return;
         nextButton.SetActive(true);
         tea.transform.localPosition = new Vector3(tea.transform.localPosition.x, tea.transform.localPosition.y, -5f);
         tea.teaConfiguration.SetActive(true);
@@ -41,6 +43,15 @@ public class TeaReady : MonoBehaviour
         yield return new WaitForSeconds(3f);
         moneyText.gameObject.SetActive(false);
         
+        CheckerManager.Instance.SpawnCat();
+    }
+
+    public void OnDestroy()
+    {
+        if (tea == null || cat == null) return;
+        OnStart();
+        Destroy(tea.gameObject);
+        Destroy(cat.gameObject);
         CheckerManager.Instance.SpawnCat();
     }
 }

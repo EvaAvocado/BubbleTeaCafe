@@ -11,7 +11,7 @@ public class CookieManager : MonoBehaviour
 
     public void CountCookie()
     {
-        if (_counter == 2)
+        if (_counter >= 2)
         {
             // NEXT SCENE
             nextText.SetActive(true);

@@ -55,7 +55,7 @@ public class Timer
             // Если таймер закончился, сбрасываем его
             if (_elapsedTime >= _duration)
             {
-                _elapsedTime = 0f; // Сброс прошедшего времени
+                //_elapsedTime = 0f; // Сброс прошедшего времени
             }
         }
     }

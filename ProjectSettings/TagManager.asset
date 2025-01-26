@@ -9,6 +9,7 @@ TagManager:
   - SPARKLING
   - COOKIES
   - SYRUP
+  - DontDestroy
   layers:
   - Default
   - TransparentFX

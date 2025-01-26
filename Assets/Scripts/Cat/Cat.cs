@@ -62,7 +62,8 @@ public class Cat : MonoBehaviour
     // Вызывается в конце анимации
     public void StartOrder()
     {
-        button.SetActive(true);
+        CheckerManager.Instance.dialogue.OpenQuestion();
+        //button.SetActive(true);
     }
 
     public void MoveSideCat()

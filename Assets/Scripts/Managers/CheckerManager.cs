@@ -13,6 +13,9 @@ public class CheckerManager : MonoBehaviour
     public Canvas canvas;
     public CatSpawner catSpawner;
     public TeaReady teaReady;
+    public SceneManager sceneManager1_1;
+    public SceneManager sceneManager3;
+    public Dialogue dialogue;
 
     [Header("UI")] public TMP_Text textTimer;
     public GameObject itsTime; // Надпись + лапка дальше
@@ -27,6 +30,8 @@ public class CheckerManager : MonoBehaviour
     [Header("Bools")] public bool isSampleScene;
     public bool isScene1_1;
     public bool isDayChanged;
+    private bool _isTimer;
+    public bool _isReady;
 
     public static CheckerManager Instance { get; private set; }
 
@@ -55,8 +60,12 @@ public class CheckerManager : MonoBehaviour
         }
         else if (currentSceneName == "Scene 1-1")
         {
+            currentDayText.text = "День " + currentDay.ToString() + " из " + maxDays.ToString();
+            moneyText.text = "Заработано: " + currentMoney.ToString() + "$ / " + neededMoney.ToString() + "$";
+            moneyAll.SetActive(true);
             isScene1_1 = true;
             isDayChanged = true;
+            _isReady = true;
         }
     }
 
@@ -69,10 +78,16 @@ public class CheckerManager : MonoBehaviour
     {
         if (isScene1_1 && isDayChanged)
         {
-            currentDayText.text = "День " + currentDay.ToString() + " из " + maxDays.ToString();
-            moneyText.text = "Заработано: " + currentMoney.ToString() + "$ / " + neededMoney.ToString() + "$";
-            moneyAll.SetActive(true);
+            teaReady.OnDestroy();
+            _timer.Reset();
             isDayChanged = false;
+            _isTimer = false;
+        }
+
+        if (isScene1_1 && !isDayChanged && !_isReady)
+        {
+            teaReady.Ready();
+            _isReady = true;
         }
 
         if (!isSampleScene) return;
@@ -81,12 +96,17 @@ public class CheckerManager : MonoBehaviour
         _timer.Update(Time.deltaTime);
 
         // Проверяем, закончился ли таймер
-        if (_timer.IsFinished())
-        { ;
+        if (_timer.IsFinished() && !_isTimer)
+        { 
             itsTime.SetActive(true);
+            textTimer.text = "0 сек";
             Debug.Log("Timer is finished!");
-            _timer.Reset();
+            //_timer.Reset();
             _timer.Stop(); // Останавливаем таймер
+            _isTimer = true;
+            
+            EndCookingManager endCookingManager = FindObjectOfType<EndCookingManager>();
+            if (endCookingManager != null) endCookingManager.CalculateCook();
         }
         else
         {
@@ -99,8 +119,11 @@ public class CheckerManager : MonoBehaviour
     public void SpawnCat()
     {
         if (catSpawner == null) catSpawner = FindObjectOfType<CatSpawner>();
-        
-        catSpawner.SpawnCat();
+        if (catSpawner == null)
+        {
+            sceneManager1_1.LoadScene();
+        }
+        if (catSpawner!=null) catSpawner.SpawnCat();
     }
 
     public void OnMoneyAll()
@@ -115,21 +138,28 @@ public class CheckerManager : MonoBehaviour
 
     public void NextAfterItsTime()
     {
+        print(145);
+        itsTime.SetActive(false);
+        currentDayText.text = "День " + currentDay.ToString() + " из " + maxDays.ToString();
+        moneyText.text = "Заработано: " + currentMoney.ToString() + "$ / " + neededMoney.ToString() + "$";
+        moneyAll.SetActive(true);
+        
         if (currentDay < maxDays)
         {
-            itsTime.SetActive(false);
+            currentDay++;
             isDayChanged = true;
         }
         else
         {
-            _sceneManager.LoadScene("Scene 3");
+            currentDayText2.text = "День " + currentDay.ToString() + " из " + maxDays.ToString();
+            moneyText2.text = "Заработано: " + currentMoney.ToString() + "$ / " + neededMoney.ToString() + "$";
+            moneyAll2.SetActive(true);
+            //sceneManager3.LoadScene();
         }
-
-        currentDay++;
     }
 
     public void TheEnd()
     {
-        _sceneManager.LoadScene("Scene 3");
+        sceneManager3.LoadScene();
     }
 }
