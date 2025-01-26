@@ -16,6 +16,11 @@ namespace MaskDrawer.Assets
 
         private Texture2D maskTexture;
 
+        public void Disable()
+        {
+            enabled = false;
+        }
+        
         void Start()
         {
             // Создаем Texture2D из RenderTexture

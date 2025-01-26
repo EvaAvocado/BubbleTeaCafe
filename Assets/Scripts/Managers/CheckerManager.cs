@@ -82,11 +82,11 @@ public class CheckerManager : MonoBehaviour
 
         // Проверяем, закончился ли таймер
         if (_timer.IsFinished())
-        {
+        { ;
             itsTime.SetActive(true);
             Debug.Log("Timer is finished!");
-            _timer.Stop(); // Останавливаем таймер
             _timer.Reset();
+            _timer.Stop(); // Останавливаем таймер
         }
         else
         {
@@ -98,6 +98,8 @@ public class CheckerManager : MonoBehaviour
 
     public void SpawnCat()
     {
+        if (catSpawner == null) catSpawner = FindObjectOfType<CatSpawner>();
+        
         catSpawner.SpawnCat();
     }
 
@@ -115,12 +117,12 @@ public class CheckerManager : MonoBehaviour
     {
         if (currentDay < maxDays)
         {
-            //
+            itsTime.SetActive(false);
+            isDayChanged = true;
         }
         else
         {
-            itsTime.SetActive(false);
-            isDayChanged = true;
+            _sceneManager.LoadScene("Scene 3");
         }
 
         currentDay++;

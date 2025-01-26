@@ -1,3 +1,4 @@
+using DefaultNamespace.Choose;
 using MaskDrawer.Assets;
 using Toppings;
 using UnityEngine;
@@ -64,6 +65,12 @@ public class TeaManager : MonoBehaviour
                         cookie.SetInTeaManager();
                     }
                 }
+            }
+
+            if (clonedTopping.CompareTag("SYRUP"))
+            {
+                clonedTopping.GetComponent<Syrup>().syrupMask.Disable();
+                clonedTopping.GetComponent<Syrup>().DisabledTouchDraw();
             }
         }
     }

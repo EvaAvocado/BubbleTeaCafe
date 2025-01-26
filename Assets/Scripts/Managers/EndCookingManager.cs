@@ -47,6 +47,7 @@ public class EndCookingManager : MonoBehaviour
         }
         
         CheckerManager.Instance.currentMoney += _earnedMoney;
+        print("!!!!!!!&&& "+_counter + ", " + _earnedMoney);
         PlayerPrefs.SetInt("Earned Money", _earnedMoney);
     }
 

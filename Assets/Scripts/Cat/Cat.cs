@@ -14,23 +14,23 @@ public class Cat : MonoBehaviour
     public Canvas canvas;
 
     public static Cat Instance; // Синглтон для доступа из других скриптов
-
-    private void Awake()
+    
+    public void OnEnable()
     {
+        print(11);
         // Создаем синглтон и сохраняем объект при переходе между сценами
         if (Instance == null)
         {
+            print(22);
             Instance = this;
             DontDestroyOnLoad(gameObject); // Сохраняем объект между сценами
         }
         else
         {
+            print(33);
             Destroy(gameObject);
         }
-    }
-    
-    public void OnEnable()
-    {
+        
         Shuffle(bodies);
         Shuffle(costumes);
         Shuffle(hats);
@@ -63,5 +63,18 @@ public class Cat : MonoBehaviour
     public void StartOrder()
     {
         button.SetActive(true);
+    }
+
+    public void MoveSideCat()
+    {
+        canvas.gameObject.SetActive(false);
+        var animator = GetComponent<Animator>();
+        animator.enabled = false;
+        transform.position = new Vector3(-17.85f, 1.01f, -3.006697f);
+    }
+
+    public void MoveCenterCat()
+    {
+        transform.position = new Vector3(-3.48f, 1.01f, -3.006697f);
     }
 }

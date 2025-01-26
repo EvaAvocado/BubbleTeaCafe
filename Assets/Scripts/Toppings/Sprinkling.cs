@@ -5,6 +5,7 @@ public class Sprinkling : MonoBehaviour
 {
     public SpriteRenderer sprite;
     public SprinklingManager sprinklingManager;
+    private bool _isOpen;
 
     private void Awake()
     {
@@ -13,8 +14,11 @@ public class Sprinkling : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if(_isOpen) return;
+        
         sprite.enabled = true;
         sprinklingManager._counter++;
         sprinklingManager.CountSprinkling();
+        _isOpen = true;
     }
 }
