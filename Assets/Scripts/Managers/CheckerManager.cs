@@ -12,6 +12,7 @@ public class CheckerManager : MonoBehaviour
     public int currentMoney = 0;
     public Canvas canvas;
     public CatSpawner catSpawner;
+    public TeaReady teaReady;
 
     [Header("UI")] public TMP_Text textTimer;
     public GameObject itsTime; // Надпись + лапка дальше
@@ -82,16 +83,6 @@ public class CheckerManager : MonoBehaviour
         // Проверяем, закончился ли таймер
         if (_timer.IsFinished())
         {
-            if (currentDay < maxDays)
-            {
-                itsTimeText.text = "Ну вот и настал новый день!";
-                isDayChanged = true;
-            }
-            else
-            {
-                itsTimeText.text = "Ну вот и все...";
-            }
-
             itsTime.SetActive(true);
             Debug.Log("Timer is finished!");
             _timer.Stop(); // Останавливаем таймер
@@ -128,10 +119,8 @@ public class CheckerManager : MonoBehaviour
         }
         else
         {
-            moneyText2.text = "Заработано: " + currentMoney.ToString() + "$ / " + neededMoney.ToString() + "$";
-            currentDayText2.text = "День " + currentDay.ToString() + " из " + maxDays.ToString();
             itsTime.SetActive(false);
-            moneyAll2.SetActive(true);
+            isDayChanged = true;
         }
 
         currentDay++;

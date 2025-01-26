@@ -10,6 +10,7 @@ namespace Toppings
         private bool _isDragging = false; // Указывает, тащим ли мы сейчас печенье
         private Transform _targetItem = null; // Ссылка на предмет с тегом item
         private bool _isGame = true;
+        public CookieManager cookieManager;
 
         private void Start()
         {
@@ -40,12 +41,16 @@ namespace Toppings
                 {
                     // Если печенье в зоне предмета item, ставим его в координаты endPosition
                     transform.DOLocalMove(endPosition, 5f).SetSpeedBased().SetEase(Ease.OutCubic);
+                    cookieManager._counter++;
                 }
                 else
                 {
                     // Если нет, возвращаем на исходное место
                     transform.DOLocalMove(_startPosition, 10f).SetSpeedBased().SetEase(Ease.OutCubic);
+                    cookieManager._counter--;
                 }
+                
+                cookieManager.CountCookie();
             }
         }
 

@@ -54,6 +54,8 @@ public class ChooseCream : MonoBehaviour
                 creams[2].SetActive(true);
                 break;
         }
+        
+        PlayerPrefs.SetString("Player_Costume", creamName.ToString());
 
         foreach (var additive in additives)
         {

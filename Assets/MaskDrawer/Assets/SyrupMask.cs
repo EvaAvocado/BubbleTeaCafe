@@ -1,5 +1,6 @@
 using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MaskDrawer.Assets
 {
@@ -10,6 +11,8 @@ namespace MaskDrawer.Assets
         public Camera maskCamera; // Камера для рендеринга маски
         public RenderTexture maskRenderTexture; // RenderTexture маски
         public float fillThreshold = 95f; // Порог заполнения в процентах
+        public GameObject nextText;
+        public Button button;
 
         private Texture2D maskTexture;
 
@@ -51,6 +54,9 @@ namespace MaskDrawer.Assets
             if (fillPercent >= fillThreshold)
             {
                 syrupSprite.maskInteraction = SpriteMaskInteraction.None;
+                // NEXT SCENE
+                nextText.SetActive(true);
+                button.gameObject.SetActive(false);
             }
         }
 

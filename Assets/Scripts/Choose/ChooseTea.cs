@@ -57,6 +57,8 @@ public class ChooseTea : MonoBehaviour
                     break;
             }
             
+            PlayerPrefs.SetString("Player_Body", color.ToString());
+            
             dropSpawner.gameObject.SetActive(true);
             text2.SetActive(false);
             mainButton.interactable = true;

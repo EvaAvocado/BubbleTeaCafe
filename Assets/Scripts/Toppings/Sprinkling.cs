@@ -1,19 +1,20 @@
+using System;
 using UnityEngine;
 
-namespace Toppings
+public class Sprinkling : MonoBehaviour
 {
-    public class Sprinkling : MonoBehaviour
+    public SpriteRenderer sprite;
+    public SprinklingManager sprinklingManager;
+
+    private void Awake()
     {
-        public SpriteRenderer sprite;
+        sprite = GetComponent<SpriteRenderer>();
+    }
 
-        private void Awake()
-        {
-            sprite = GetComponent<SpriteRenderer>();
-        }
-
-        private void OnMouseDown()
-        {
-            sprite.enabled = true;
-        }
+    private void OnMouseDown()
+    {
+        sprite.enabled = true;
+        sprinklingManager._counter++;
+        sprinklingManager.CountSprinkling();
     }
 }

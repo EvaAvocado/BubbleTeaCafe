@@ -4,37 +4,48 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public List<AudioClip> audioClips;    // Список аудиофайлов
-    public AudioSource audioSource;       // Аудио источник, через который будем проигрывать клипы
+    public static AudioManager Instance { get; private set; } // Статическая ссылка на текущий экземпляр
+    public List<AudioClip> audioClips;                       // Список аудиофайлов
+    public AudioSource audioSource;                          // Аудио источник
 
     private void Awake()
     {
-        // Убедимся, что объект не будет уничтожен при смене сцены
-        DontDestroyOnLoad(gameObject);
-
-        // Проверим, если аудио источник не назначен, то создаём новый
-        if (audioSource == null)
+        // Проверяем, существует ли уже экземпляр AudioManager
+        if (Instance != null && Instance != this)
         {
-            audioSource = gameObject.AddComponent<AudioSource>();
+            Destroy(gameObject); // Уничтожаем новый экземпляр, если он дублируется
+            return;
         }
 
-        // Перемешиваем список аудиоклипов при старте
+        // Назначаем текущий объект как Instance
+        Instance = this;
+
+        // Убедимся, что объект не уничтожается при смене сцены
+        DontDestroyOnLoad(gameObject);
+
+        // Если аудио источник не назначен, создаём его
+        if (audioSource == null)
+        {
+            audioSource = gameObject.GetComponent<AudioSource>();
+        }
+
+        // Перемешиваем список аудиоклипов
         ShuffleAudioList();
     }
 
     private void Start()
     {
-        // Начинаем играть аудио
+        // Начинаем проигрывать аудио
         StartCoroutine(PlayAudioClips());
     }
 
     private void ShuffleAudioList()
     {
-        // Простой алгоритм перемешивания списка (Fisher-Yates)
+        // Алгоритм перемешивания списка (Fisher-Yates)
         for (int i = 0; i < audioClips.Count; i++)
         {
             AudioClip temp = audioClips[i];
-            int randomIndex = Random.Range(i, (int)audioClips.Count);
+            int randomIndex = Random.Range(i, audioClips.Count);
             audioClips[i] = audioClips[randomIndex];
             audioClips[randomIndex] = temp;
         }
@@ -44,15 +55,15 @@ public class AudioManager : MonoBehaviour
     {
         foreach (AudioClip clip in audioClips)
         {
-            // Проигрываем клип
+            // Проигрываем текущий клип
             audioSource.clip = clip;
             audioSource.Play();
 
-            // Ждём, пока клип не закончится, прежде чем начать следующий
+            // Ждём завершения клипа
             yield return new WaitForSeconds(clip.length);
         }
 
-        // После того как все клипы были проиграны, можно начать с самого начала
+        // Перезапускаем воспроизведение с начала
         StartCoroutine(PlayAudioClips());
     }
 }

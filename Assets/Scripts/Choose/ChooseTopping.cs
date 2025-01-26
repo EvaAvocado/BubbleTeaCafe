@@ -88,6 +88,7 @@ public class ChooseTopping : MonoBehaviour
                 break;
         }
         
+        PlayerPrefs.SetString("Player_Hat", toppingName.ToString());
         text6.SetActive(false);
         foreach (var additive in additives)
         {
