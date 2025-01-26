@@ -106,7 +106,7 @@ public class CheckerManager : MonoBehaviour
             _isTimer = true;
             
             EndCookingManager endCookingManager = FindObjectOfType<EndCookingManager>();
-            if (endCookingManager != null) endCookingManager.CalculateCook();
+            if (endCookingManager != null) endCookingManager.CalculateCookEndTime();
         }
         else
         {

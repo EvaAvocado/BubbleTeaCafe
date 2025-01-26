@@ -13,6 +13,12 @@ public class EndCookingManager : MonoBehaviour
         buttonFinish.SetActive(true);
     }
 
+    public void CalculateCookEndTime()
+    {
+        _counter = -1;
+        CalculateCook();
+    }
+
     public void CalculateCook()
     {
         if (PlayerPrefs.GetString("Body") == PlayerPrefs.GetString("Player_Body"))
@@ -32,6 +38,9 @@ public class EndCookingManager : MonoBehaviour
 
         switch (_counter)
         {
+            case -1:
+                _earnedMoney = 0;
+                break;
             case 0:
                 _earnedMoney = 5;
                 break;

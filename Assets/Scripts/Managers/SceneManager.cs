@@ -71,6 +71,13 @@ public class SceneManager : MonoBehaviour
                 CheckerManager.Instance.moneyAll2.gameObject.SetActive(false);
             }
 
+            if (this.sceneName == "SampleScene")
+            {
+                PlayerPrefs.SetString("Player_Body", "null");
+                PlayerPrefs.SetString("Player_Costume", "null");
+                PlayerPrefs.SetString("Player_Hat", "null");
+            }
+
 
             print(1 + sceneName);
 

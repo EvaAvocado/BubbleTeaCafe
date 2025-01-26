@@ -14,7 +14,7 @@ public class Dialogue : MonoBehaviour
 
     public void OpenQuestion()
     {
-        spriteRenderer.sprite = questions[_counter];
+        spriteRenderer.sprite = answers[_counter];
         buttonQuestion.SetActive(true);
     }
     
@@ -23,7 +23,7 @@ public class Dialogue : MonoBehaviour
     {
         buttonQuestion.SetActive(false);
         buttonAnswer.SetActive(true);
-        spriteRenderer.sprite = answers[_counter];
+        spriteRenderer.sprite = questions[_counter];
         _counter++;
         if (_counter == answers.Length)
         {

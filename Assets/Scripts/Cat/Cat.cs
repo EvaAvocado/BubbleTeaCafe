@@ -71,7 +71,7 @@ public class Cat : MonoBehaviour
         canvas.gameObject.SetActive(false);
         var animator = GetComponent<Animator>();
         animator.enabled = false;
-        transform.position = new Vector3(-17.85f, 1.01f, -3.006697f);
+        transform.position = new Vector3(-9.43f, 1.01f, -3.006697f);
     }
 
     public void MoveCenterCat()
