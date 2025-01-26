@@ -19,6 +19,12 @@ public class DropSpawner : MonoBehaviour
     public GameObject contour;
     public GameObject shaker;
     public Transform spawnPont;
+    public ChooseTea chooseTea;
+    public GameObject milkMark;
+    public GameObject text2;
+    public GameObject text3;
+    public GameObject text4;
+    public GameObject chooseCream;
 
     private Color _waterColor;
     private Color _milkColor;
@@ -49,6 +55,7 @@ public class DropSpawner : MonoBehaviour
         mainButton.OnMouseEvent += OnButtonPressed;
         _waterColor = waterMesh.material.color;
         _milkColor = milkMesh.material.color;
+        text2.SetActive(true);
     }
 
     private void OnDisable()
@@ -69,11 +76,15 @@ public class DropSpawner : MonoBehaviour
     private void Update()
     {
         // Проверяем, если кнопка НЕ нажата
-        if (!_isWaterFlowed && _isFirstTime && !_isPressed)
+        if (!_isWaterFlowed && _isFirstTime && !_isPressed && _counter > 100)
         {
             // Кнопка не нажата в первый раз - отключаем воду
+            chooseTea.gameObject.SetActive(false);
+            milkMark.SetActive(true);
             contour.SetActive(false);
             _isWaterFlowed = true;
+            text2.SetActive(false);
+            text3.SetActive(true);
             _counter = 0;
         }
         
@@ -105,7 +116,10 @@ public class DropSpawner : MonoBehaviour
 
         if (_counter >= 50 && _isWaterFlowed)
         {
-            _button.gameObject.SetActive(false);
+            text3.SetActive(false);
+            text4.SetActive(true);
+            milkMark.SetActive(false);
+            _button.interactable = false;
             shaker.SetActive(true);
         }
 
@@ -146,7 +160,7 @@ public class DropSpawner : MonoBehaviour
                         break;
                 }
                 
-                _t += 0.05f;
+                _t += 0.03f;
                 //print(_t);
                 _counter++;
             }
@@ -155,6 +169,8 @@ public class DropSpawner : MonoBehaviour
 
     private void Ready()
     {
+        chooseCream.gameObject.SetActive(true);
+        text4.SetActive(false);
         contour.SetActive(false);
         shaker.SetActive(false);
         gameObject.SetActive(false);

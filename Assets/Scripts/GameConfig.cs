@@ -23,5 +23,13 @@ namespace DefaultNamespace
             White,
             Pink
         }
+        
+        public enum Cream
+        {
+            None,
+            Cream1,
+            Cream2,
+            Cream3
+        }
     }
 }

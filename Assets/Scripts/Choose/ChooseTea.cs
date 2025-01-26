@@ -11,6 +11,7 @@ public class ChooseTea : MonoBehaviour
     public Material[] materials;
     public DropSpawner dropSpawner;
     public Button mainButton;
+    public GameObject text2;
     
     private void OnEnable()
     {
@@ -20,14 +21,14 @@ public class ChooseTea : MonoBehaviour
         }
         
         mainButton.interactable = false;
-        print(1);
+        text2.SetActive(true);
     }
 
     private void OnDisable()
     {
         foreach (var teaButton in teaButtons)
         {
-            teaButton.OnMouseEvent -= ButtonPressed;
+            if (teaButton != null) teaButton.OnMouseEvent -= ButtonPressed;
         }
     }
 
@@ -35,22 +36,31 @@ public class ChooseTea : MonoBehaviour
     {
         if (value)
         {
+            foreach (var teaButton in teaButtons)
+            {
+                teaButton.gameObject.SetActive(false);
+            }
+            
             switch (color)
             {
                 case GameConfig.WaterColor.Brown:
                     waterMesh.material = materials[0];
+                    teaButtons[0].gameObject.SetActive(true);
                     break;
                 case GameConfig.WaterColor.White:
                     waterMesh.material = materials[1];
+                    teaButtons[1].gameObject.SetActive(true);
                     break;
                 case GameConfig.WaterColor.Pink:
                     waterMesh.material = materials[2];
+                    teaButtons[2].gameObject.SetActive(true);
                     break;
             }
             
             dropSpawner.gameObject.SetActive(true);
+            text2.SetActive(false);
             mainButton.interactable = true;
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
     } 
 }

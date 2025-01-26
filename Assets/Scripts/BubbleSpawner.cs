@@ -13,6 +13,7 @@ public class BubbleSpawner : MonoBehaviour
     public Button mainButton;
     public ChooseTea chooseTea;
     public TMP_Text text;
+    public GameObject text1;
     
     private int _currentBubbleCount; // Счётчик активных тапиок
     private bool _isSpawning;
@@ -24,8 +25,9 @@ public class BubbleSpawner : MonoBehaviour
     {
         // Спавним первую тапиоку при включении
         SpawnBubble();
-        text.text = maxBubbles + " Bubbles Left";
+        text.text = "Осталось: " + maxBubbles;
         text.gameObject.SetActive(true);
+        text1.SetActive(true);
         _counter = maxBubbles;
     }
 
@@ -61,7 +63,7 @@ public class BubbleSpawner : MonoBehaviour
     private IEnumerator SpawnBubbleWithDelay()
     {
         _counter--;
-        text.text = _counter + " Bubbles Left";
+        text.text = "Осталось: " + _counter;
         
         // Задержка перед спавном новой тапиоки (1 секунда)
         yield return new WaitForSeconds(0.5f);
@@ -76,6 +78,7 @@ public class BubbleSpawner : MonoBehaviour
         }
        else
        {
+           text1.SetActive(false);
            chooseTea.gameObject.SetActive(true);
            text.gameObject.SetActive(false);
            mainButton.interactable = false;
