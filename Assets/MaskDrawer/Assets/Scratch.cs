@@ -7,6 +7,7 @@ namespace MaskDrawer.Assets
         public SpriteMask spriteMask;
         public Camera spriteCam;
         private Texture2D texture; // Текстура для маски
+        public Transform cream;
 
         public void AssignScreenAsMask() 
         {

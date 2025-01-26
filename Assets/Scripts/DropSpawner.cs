@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DefaultNamespace;
 using DG.Tweening;
 using UnityEngine;
@@ -25,6 +26,8 @@ public class DropSpawner : MonoBehaviour
     public GameObject text3;
     public GameObject text4;
     public GameObject chooseCream;
+    public TeaManager teaManager;
+    public List<GameObject> additives;
 
     private Color _waterColor;
     private Color _milkColor;
@@ -33,9 +36,9 @@ public class DropSpawner : MonoBehaviour
     private int _counter;
     private float _t;
     private bool _isColorChange;
-    
-    private bool _isFirstTime = false;    // Флаг для отслеживания молока
-    private bool _isWaterFlowed = false;   // Флаг для отслеживания воды
+
+    private bool _isFirstTime = false; // Флаг для отслеживания молока
+    private bool _isWaterFlowed = false; // Флаг для отслеживания воды
     private bool _isPressed;
 
     public Action OnReady;
@@ -67,12 +70,12 @@ public class DropSpawner : MonoBehaviour
     {
         _isColorChange = value;
     }
-    
+
     private void OnButtonPressed(bool value)
     {
         _isPressed = value;
     }
-    
+
     private void Update()
     {
         // Проверяем, если кнопка НЕ нажата
@@ -87,28 +90,32 @@ public class DropSpawner : MonoBehaviour
             text3.SetActive(true);
             _counter = 0;
         }
-        
+
         if (_counter < 350 && _isPressed && !_isWaterFlowed)
         {
             _cooldown -= Time.deltaTime;
             while (_cooldown < 0)
             {
                 _cooldown += 0.02f;
-                Instantiate(dropPrefab, new Vector2(spawnPont.position.x, spawnPont.position.y)+Random.insideUnitCircle*.2f, Quaternion.identity, dropParent.transform);
+                Instantiate(dropPrefab,
+                    new Vector2(spawnPont.position.x, spawnPont.position.y) + Random.insideUnitCircle * .2f,
+                    Quaternion.identity, dropParent.transform);
                 _counter++;
                 //print(_counter);
             }
 
             _isFirstTime = true;
         }
-        
+
         if (Input.GetMouseButton(0) && _counter < 50 && _isPressed && _isWaterFlowed)
         {
             _cooldown -= Time.deltaTime;
             while (_cooldown < 0)
             {
                 _cooldown += 0.02f;
-                Instantiate(milkPrefab, new Vector2(spawnPont.position.x, spawnPont.position.y)+Random.insideUnitCircle*.2f, Quaternion.identity, milkParent.transform);
+                Instantiate(milkPrefab,
+                    new Vector2(spawnPont.position.x, spawnPont.position.y) + Random.insideUnitCircle * .2f,
+                    Quaternion.identity, milkParent.transform);
                 _counter++;
                 //print(_counter);
             }
@@ -139,6 +146,7 @@ public class DropSpawner : MonoBehaviour
                         {
                             Ready();
                         }
+
                         break;
                     case GameConfig.WaterColor.White:
                         waterMesh.material.color = Color.Lerp(_waterColor, new Color(0.9725f, 0.8549f, 0.8510f), _t);
@@ -148,6 +156,7 @@ public class DropSpawner : MonoBehaviour
                         {
                             Ready();
                         }
+
                         break;
                     case GameConfig.WaterColor.Pink:
                         waterMesh.material.color = Color.Lerp(_waterColor, new Color(0.9529f, 0.3647f, 0.5804f), _t);
@@ -157,9 +166,10 @@ public class DropSpawner : MonoBehaviour
                         {
                             Ready();
                         }
+
                         break;
                 }
-                
+
                 _t += 0.03f;
                 //print(_t);
                 _counter++;
@@ -179,6 +189,13 @@ public class DropSpawner : MonoBehaviour
             .OnComplete(() =>
             {
                 Debug.Log("Поворот завершён!");
+                _mixerSlider.glass.DORotate(Vector3.zero, 2f).OnComplete(() =>
+                {
+                    foreach (var additive in additives)
+                    {
+                        teaManager.AddTopping(additive);
+                    }
+                });
             });
     }
 }

@@ -8,6 +8,7 @@ public class Bubble : MonoBehaviour
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
     public float moveRange = 5f;
+    public bool isStart;
     
     private bool _isFalling = false;
     private float _moveDirection = 1f;
@@ -16,10 +17,18 @@ public class Bubble : MonoBehaviour
 
     private void Start()
     {
-        transform.position = new Vector3(-moveRange, transform.position.y, transform.position.z);
-        moveSpeed = UnityEngine.Random.Range(moveSpeed - 4f, moveSpeed + 4f);
-
-        button.onClick.AddListener(OnClick);
+        if (isStart)
+        {
+            transform.position = new Vector3(-moveRange, transform.position.y, transform.position.z);
+            moveSpeed = UnityEngine.Random.Range(moveSpeed - 4f, moveSpeed + 4f);
+            button.onClick.AddListener(OnClick);
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.bodyType = RigidbodyType2D.Dynamic;
+        }
+        
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -40,7 +49,7 @@ public class Bubble : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if (!_isFalling)
+        if (!_isFalling && isStart)
         {
             // Движение тапиоки влево-вправ в пределах диапазона
             float horizontalMovement = moveSpeed * _moveDirection * Time.deltaTime;

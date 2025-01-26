@@ -5,6 +5,9 @@ namespace DefaultNamespace
         public enum Topping
         {
             None,
+            Sprinkling,
+            Cookies,
+            Syrup,
             Sprinkling1,
             Sprinkling2,
             Sprinkling3,

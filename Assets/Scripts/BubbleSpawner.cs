@@ -14,6 +14,8 @@ public class BubbleSpawner : MonoBehaviour
     public ChooseTea chooseTea;
     public TMP_Text text;
     public GameObject text1;
+    public TeaManager teaManager;
+    public List<GameObject> additives;
     
     private int _currentBubbleCount; // Счётчик активных тапиок
     private bool _isSpawning;
@@ -42,6 +44,7 @@ public class BubbleSpawner : MonoBehaviour
             // Получаем компонент Bubble
             Bubble bubbleScript = bubble.GetComponent<Bubble>();
             bubbleScript.button = mainButton;
+            bubbleScript.isStart = true;
 
             // Увеличиваем счётчик тапиок
             _currentBubbleCount++;
@@ -78,6 +81,20 @@ public class BubbleSpawner : MonoBehaviour
         }
        else
        {
+           foreach (var additive in additives)
+           {
+               var bubbleSpawner = additive.GetComponent<BubbleSpawner>();
+               if (bubbleSpawner != null)
+               {
+                   bubbleSpawner.enabled = false;
+                   foreach (var bubble in bubbleSpawner._bubbles)
+                   {
+                       bubble.isStart = false;
+                   }
+               }
+               
+               teaManager.AddTopping(additive);
+           }
            text1.SetActive(false);
            chooseTea.gameObject.SetActive(true);
            text.gameObject.SetActive(false);
