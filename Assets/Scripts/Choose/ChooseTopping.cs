@@ -53,21 +53,15 @@ public class ChooseTopping : MonoBehaviour
                 switch (creamName)
                 {
                     case GameConfig.Cream.Cream1:
-                        toppingsSyrup[0].GetComponent<Scratch>().cream.localScale = Vector3.one;
                         additives.Add(toppingsSyrup[0]);
-                        toppingsSyrup[0].GetComponent<Scratch>().cream.localScale = new Vector3(0.8f, 0.8f, 0);
                         toppingsSyrup[0].SetActive(true);
                         break;
                     case GameConfig.Cream.Cream2:
-                        toppingsSyrup[1].GetComponent<Scratch>().cream.localScale = Vector3.one;
                         additives.Add(toppingsSyrup[1]);
-                        toppingsSyrup[1].GetComponent<Scratch>().cream.localScale = new Vector3(0.8f, 0.8f, 0);
                         toppingsSyrup[1].SetActive(true);
                         break;
                     case GameConfig.Cream.Cream3:
-                        toppingsSyrup[2].GetComponent<Scratch>().cream.localScale = Vector3.one;
                         additives.Add(toppingsSyrup[2]);
-                        toppingsSyrup[2].GetComponent<Scratch>().cream.localScale = new Vector3(0.8f, 0.8f, 0);
                         toppingsSyrup[2].SetActive(true);
                         break;
                 }

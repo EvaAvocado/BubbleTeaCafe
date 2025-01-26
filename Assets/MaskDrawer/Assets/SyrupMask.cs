@@ -46,7 +46,7 @@ namespace MaskDrawer.Assets
 
             // Проверяем заполнение
             float fillPercent = CalculateFillPercentage();
-            Debug.Log("Fill Percentage: " + fillPercent);
+            //Debug.Log("Fill Percentage: " + fillPercent);
 
             if (fillPercent >= fillThreshold)
             {

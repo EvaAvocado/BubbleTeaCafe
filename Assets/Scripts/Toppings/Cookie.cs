@@ -9,15 +9,19 @@ namespace Toppings
         private Vector3 _startPosition; // Исходная позиция печенья
         private bool _isDragging = false; // Указывает, тащим ли мы сейчас печенье
         private Transform _targetItem = null; // Ссылка на предмет с тегом item
+        private bool _isGame = true;
 
         private void Start()
         {
+            if(!_isGame) return;
             // Сохраняем исходную позицию печенья
             _startPosition = transform.position;
         }
 
         private void Update()
         {
+            if(!_isGame) return;
+            
             // Если зажата мышь и мы тащим печенье
             if (_isDragging)
             {
@@ -47,12 +51,14 @@ namespace Toppings
 
         private void OnMouseDown()
         {
+            if(!_isGame) return;
             // Начинаем перетаскивание при нажатии на печенье
             _isDragging = true;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if(!_isGame) return;
             // Проверяем, если вошли в зону предмета с тегом item
             if (collision.CompareTag("Item"))
             {
@@ -62,11 +68,18 @@ namespace Toppings
 
         private void OnTriggerExit2D(Collider2D collision)
         {
+            if(!_isGame) return;
             // Если выходим из зоны предмета с тегом item
             if (collision.CompareTag("Item") && _targetItem == collision.transform)
             {
                 _targetItem = null;
             }
+        }
+
+        public void SetInTeaManager()
+        {
+            _isGame = false;
+            transform.DOLocalMove(endPosition, 0f);
         }
     }
 }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Item
   - NotReacted
+  - SPARKLING
+  - COOKIES
   layers:
   - Default
   - TransparentFX

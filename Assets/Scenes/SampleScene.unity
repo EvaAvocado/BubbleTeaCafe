@@ -187,6 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteMask: {fileID: 627383040}
   spriteCam: {fileID: 1308534235}
+  cream: {fileID: 1420340886}
 --- !u!1 &8674641
 GameObject:
   m_ObjectHideFlags: 0
@@ -3195,6 +3196,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1075925158}
   - {fileID: 87647211}
   - {fileID: 645074970}
   - {fileID: 1661405563}
@@ -3528,7 +3530,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &423484336
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3583,7 +3585,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1421073456}
-  - {fileID: 1820827271}
   - {fileID: 2102025149}
   m_Father: {fileID: 884453657}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3601,7 +3602,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topping: 12
   syrupSprite: {fileID: 462397041}
-  maskCamera: {fileID: 1820827272}
+  maskCamera: {fileID: 0}
   maskRenderTexture: {fileID: 8400000, guid: e7c407cadb374754996869e5c32ca8dc, type: 2}
   fillThreshold: 50
 --- !u!212 &462397041
@@ -3882,7 +3883,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 627383039}
-  - {fileID: 596573351}
   - {fileID: 41509537}
   m_Father: {fileID: 1420340886}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3900,7 +3900,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topping: 10
   syrupSprite: {fileID: 495821801}
-  maskCamera: {fileID: 596573352}
+  maskCamera: {fileID: 0}
   maskRenderTexture: {fileID: 8400000, guid: e7c407cadb374754996869e5c32ca8dc, type: 2}
   fillThreshold: 50
 --- !u!212 &495821801
@@ -4429,7 +4429,7 @@ GameObject:
   - component: {fileID: 534476523}
   m_Layer: 0
   m_Name: "\u0421\u043B\u0438\u0432\u043A\u0438 2"
-  m_TagString: Untagged
+  m_TagString: SPARKLING
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4836,89 +4836,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.78926086, y: 18.2515}
   m_EdgeRadius: 0
---- !u!1 &596573350
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 596573351}
-  - component: {fileID: 596573352}
-  m_Layer: 7
-  m_Name: SyrupCam
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &596573351
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 596573350}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -12.5}
-  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 495821799}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &596573352
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 596573350}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 4
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 64
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: e7c407cadb374754996869e5c32ca8dc, type: 2}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
 --- !u!1 &627383038
 GameObject:
   m_ObjectHideFlags: 0
@@ -5234,7 +5151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7d9625695c5364890cb6795dc3c45d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endPosition: {x: 0.98, y: 0.31, z: 0}
+  endPosition: {x: 0.8, y: 0.2, z: 0}
 --- !u!60 &648848621
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -5493,7 +5410,7 @@ GameObject:
   - component: {fileID: 667143936}
   m_Layer: 0
   m_Name: "\u0421\u043B\u0438\u0432\u043A\u0438 1"
-  m_TagString: Untagged
+  m_TagString: SPARKLING
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7666,7 +7583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7d9625695c5364890cb6795dc3c45d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endPosition: {x: -0.6, y: 3.69, z: 0}
+  endPosition: {x: -0.47, y: 2.93, z: 0}
 --- !u!58 &849564545
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8505,7 +8422,7 @@ GameObject:
   - component: {fileID: 941540575}
   m_Layer: 0
   m_Name: "\u0421\u043B\u0438\u0432\u043A\u0438 3"
-  m_TagString: Untagged
+  m_TagString: SPARKLING
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9518,7 +9435,7 @@ GameObject:
   - component: {fileID: 1027503876}
   m_Layer: 0
   m_Name: "\u0421\u043B\u0438\u0432\u043A\u0438 3 (1)"
-  m_TagString: Untagged
+  m_TagString: COOKIES
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9945,7 +9862,7 @@ GameObject:
   - component: {fileID: 1075045597}
   m_Layer: 0
   m_Name: "\u0421\u043B\u0438\u0432\u043A\u0438 1 (1)"
-  m_TagString: Untagged
+  m_TagString: COOKIES
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9997,11 +9914,11 @@ Transform:
   m_GameObject: {fileID: 1075925157}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -12.5}
-  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1298412287}
+  m_Father: {fileID: 357560512}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1075925159
 Camera:
@@ -11461,7 +11378,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 120050510}
-  - {fileID: 1075925158}
   - {fileID: 1226250223}
   m_Father: {fileID: 1010689244}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14955,7 +14871,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1579856156
 Transform:
   m_ObjectHideFlags: 0
@@ -15471,6 +15387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteMask: {fileID: 1421073457}
   spriteCam: {fileID: 229133182}
+  cream: {fileID: 884453657}
 --- !u!1 &1690489382
 GameObject:
   m_ObjectHideFlags: 0
@@ -16954,89 +16871,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1820827270
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1820827271}
-  - component: {fileID: 1820827272}
-  m_Layer: 7
-  m_Name: SyrupCam
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1820827271
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1820827270}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -12.5}
-  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 462397039}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &1820827272
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1820827270}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 4
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 64
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: e7c407cadb374754996869e5c32ca8dc, type: 2}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
 --- !u!1 &1848650431
 GameObject:
   m_ObjectHideFlags: 0
@@ -17420,7 +17254,7 @@ GameObject:
   - component: {fileID: 1904450829}
   m_Layer: 0
   m_Name: "\u0421\u043B\u0438\u0432\u043A\u0438 2 (1)"
-  m_TagString: Untagged
+  m_TagString: COOKIES
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18122,6 +17956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteMask: {fileID: 120050511}
   spriteCam: {fileID: 772571313}
+  cream: {fileID: 1010689244}
 --- !u!1 &1996408393
 GameObject:
   m_ObjectHideFlags: 0
