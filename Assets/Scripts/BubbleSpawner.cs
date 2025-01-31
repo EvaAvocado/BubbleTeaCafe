@@ -25,12 +25,22 @@ public class BubbleSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        // Спавним первую тапиоку при включении
-        SpawnBubble();
         text.text = "Осталось: " + maxBubbles;
         text.gameObject.SetActive(true);
         text1.SetActive(true);
         _counter = maxBubbles;
+    }
+
+    private void Start()
+    {
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "SampleScene") return;
+        
+        teaManager.AddTopping(additives[0]);
+        teaManager.AddTopping(additives[1]);
+        teaManager.AddTopping(gameObject);
+        
+        // Спавним первую тапиоку при включении
+        SpawnBubble();
     }
 
     private void SpawnBubble()
@@ -81,7 +91,7 @@ public class BubbleSpawner : MonoBehaviour
         }
        else
        {
-           foreach (var additive in additives)
+           /*foreach (var additive in additives)
            {
                var bubbleSpawner = additive.GetComponent<BubbleSpawner>();
                if (bubbleSpawner != null)
@@ -92,9 +102,10 @@ public class BubbleSpawner : MonoBehaviour
                        bubble.isStart = false;
                    }
                }
-               
-               teaManager.AddTopping(additive);
-           }
+           }*/
+           
+           //teaManager.AddTopping(additives[2]);
+           
            text1.SetActive(false);
            chooseTea.gameObject.SetActive(true);
            text.gameObject.SetActive(false);

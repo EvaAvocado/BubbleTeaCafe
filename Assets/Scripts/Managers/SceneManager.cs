@@ -40,18 +40,22 @@ public class SceneManager : MonoBehaviour
 
             if (sceneName == "SampleScene")
             {
+                CheckerManager.Instance.timerGO.SetActive(true);
                 CheckerManager.Instance._timer.Start();
                 CheckerManager.Instance.isSampleScene = true;
                 Cat.Instance.MoveSideCat();
             }
             else if (sceneName == "Scene 1-1")
             {
+                CheckerManager.Instance.timerGO.SetActive(false);
                 CheckerManager.Instance.isScene1_1 = true;
                 Cat.Instance.MoveCenterCat();
                 TeaManager.Instance.gameObject.SetActive(false);
+                PlayerPrefs.SetString("WaterStart", "false");
             }
             else
             {
+                CheckerManager.Instance.timerGO.SetActive(false);
                 if (CheckerManager.Instance != null) CheckerManager.Instance._timer.Stop();
             }
 
@@ -104,11 +108,11 @@ public class SceneManager : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("Scene loaded!");
+        //Debug.Log("Scene loaded!");
         if (CheckerManager.Instance != null) CheckerManager.Instance.FindCamera();
 
         if (!gameObject.GetComponent<Cat>() && !gameObject.GetComponent<CheckerManager>()) Destroy(gameObject);
 
-        print(2 + name);
+        //print(2 + name);
     }
 }

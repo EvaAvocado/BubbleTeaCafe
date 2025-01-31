@@ -179,6 +179,8 @@ public class DropSpawner : MonoBehaviour
 
     private void Ready()
     {
+        PlayerPrefs.SetString("WaterStart", "true");
+        
         chooseCream.gameObject.SetActive(true);
         text4.SetActive(false);
         contour.SetActive(false);

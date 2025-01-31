@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -9,6 +7,7 @@ public class Intro : MonoBehaviour
     public VideoClip clip;
     public AudioSource audioSource;
     public GameObject button;      // Ссылка на объект кнопки
+    public GameObject buttonLeft;
 
     private void Start()
     {
@@ -19,7 +18,6 @@ public class Intro : MonoBehaviour
         videoPlayer.Play();
         //audioSource.Play();
         
-        // Убедимся, что кнопка изначально выключена
         button.SetActive(false);
 
         // Подписываемся на событие завершения видео
@@ -30,6 +28,7 @@ public class Intro : MonoBehaviour
     {
         // Активируем кнопку, когда видео закончилось
         button.SetActive(true);
+        buttonLeft.SetActive(false);
     }
 
     private void OnDestroy()

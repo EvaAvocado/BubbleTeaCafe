@@ -10,6 +10,7 @@ TagManager:
   - COOKIES
   - SYRUP
   - DontDestroy
+  - Glass
   layers:
   - Default
   - TransparentFX

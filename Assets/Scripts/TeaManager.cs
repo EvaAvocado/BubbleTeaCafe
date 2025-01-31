@@ -8,6 +8,7 @@ public class TeaManager : MonoBehaviour
 {
     public static TeaManager Instance; // Синглтон для доступа из других скриптов
     public GameObject teaConfiguration; // Объект TeaConfiguration
+    private GameObject parent; 
 
     private void Awake()
     {
@@ -28,6 +29,24 @@ public class TeaManager : MonoBehaviour
         // Делаем TeaConfiguration неактивным при старте
         DisableTeaConfiguration();
     }
+    
+    public void AddToppingToParent(GameObject topping)
+    {
+        if (teaConfiguration != null)
+        {
+            print("PARENT2 - " + parent);
+            // Клонируем объект наполнения и добавляем его внутрь родительского объекта
+            GameObject clonedTopping = Instantiate(topping, parent.transform);
+            clonedTopping.transform.localPosition = topping.transform.localPosition;
+            clonedTopping.transform.localRotation = topping.transform.localRotation;
+            
+            var bubble = clonedTopping.GetComponent<Bubble>();
+            if (bubble != null)
+            {
+                bubble.isStart = false;
+            }
+        }
+    }
 
     // Метод для сохранения наполнения в TeaConfiguration
     public void AddTopping(GameObject topping)
@@ -38,7 +57,18 @@ public class TeaManager : MonoBehaviour
             GameObject clonedTopping = Instantiate(topping, teaConfiguration.transform);
             clonedTopping.transform.localPosition = topping.transform.localPosition;
             clonedTopping.transform.localRotation = topping.transform.localRotation;
-            clonedTopping.transform.localScale = Vector3.one;
+            
+            var bubbleSpawner = clonedTopping.GetComponent<BubbleSpawner>();
+            if (bubbleSpawner != null)
+            {
+                parent = clonedTopping;
+                bubbleSpawner.enabled = false;
+                print("PARENT - " + parent);
+            }
+            else
+            {
+                clonedTopping.transform.localScale = Vector3.one;
+            }
             
             var scratch = clonedTopping.GetComponent<Scratch>();
             if (scratch != null)

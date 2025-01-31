@@ -34,6 +34,8 @@ public class Bubble : MonoBehaviour
 
     private void OnClick()
     {
+        if (!isStart) return;
+        
         // Останавливаем движение по оси X, чтобы тапиока падала прямо вниз
         rb.velocity = new Vector2(0, rb.velocity.y);
         
@@ -46,7 +48,19 @@ public class Bubble : MonoBehaviour
         }
        
     }
-    
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!isStart) return;
+        
+        if (other.CompareTag("Glass"))
+        {
+            TeaManager teaManager = FindObjectOfType<TeaManager>();
+            // Добавляем к чаю - клонируем
+            teaManager.AddToppingToParent(gameObject);
+        }
+    }
+
     private void FixedUpdate()
     {
         if (!_isFalling && isStart)

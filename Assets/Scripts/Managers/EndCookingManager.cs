@@ -7,6 +7,7 @@ public class EndCookingManager : MonoBehaviour
 
     private int _counter;
     private int _earnedMoney;
+    private bool _isOnlyBubble;
 
     public void OnButton()
     {
@@ -15,7 +16,11 @@ public class EndCookingManager : MonoBehaviour
 
     public void CalculateCookEndTime()
     {
-        _counter = -1;
+        if (PlayerPrefs.GetString("WaterStart") == "false")
+        {
+            _isOnlyBubble = true;
+        }
+        
         CalculateCook();
     }
 
@@ -23,17 +28,25 @@ public class EndCookingManager : MonoBehaviour
     {
         if (PlayerPrefs.GetString("Body") == PlayerPrefs.GetString("Player_Body"))
         {
+            print("body-color");
             _counter++;
         }
-        
+
         if (PlayerPrefs.GetString("Costume") == PlayerPrefs.GetString("Player_Costume"))
         {
+            print("costume-cream");
             _counter++;
         }
-        
+
         if (PlayerPrefs.GetString("Hat") == PlayerPrefs.GetString("Player_Hat"))
         {
+            print("hat-topping");
             _counter++;
+        }
+
+        if (_isOnlyBubble && _counter == 0 || _isOnlyBubble && PlayerPrefs.GetString("WaterStart") == "false")
+        {
+            _counter = -1;
         }
 
         switch (_counter)
@@ -54,10 +67,12 @@ public class EndCookingManager : MonoBehaviour
                 _earnedMoney = Random.Range(30, 36);
                 break;
         }
-        
-        CheckerManager.Instance.currentMoney += _earnedMoney;
-        print("!!!!!!!&&& "+_counter + ", " + _earnedMoney);
-        PlayerPrefs.SetInt("Earned Money", _earnedMoney);
-    }
 
+        CheckerManager.Instance.currentMoney += _earnedMoney;
+        PlayerPrefs.SetInt("Earned Money", _earnedMoney);
+        print("Counter: " + _counter + ", Earned Money: " + _earnedMoney);
+
+        _counter = 0;
+        _isOnlyBubble = false;
+    }
 }

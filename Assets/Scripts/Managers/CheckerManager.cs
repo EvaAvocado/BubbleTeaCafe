@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class CheckerManager : MonoBehaviour
 {
@@ -26,6 +28,7 @@ public class CheckerManager : MonoBehaviour
     public GameObject moneyAll2; // After Next Time
     public TMP_Text currentDayText2;
     public TMP_Text moneyText2;
+    public GameObject timerGO;
 
     [Header("Bools")] public bool isSampleScene;
     public bool isScene1_1;
@@ -36,6 +39,7 @@ public class CheckerManager : MonoBehaviour
     public static CheckerManager Instance { get; private set; }
 
     private SceneManager _sceneManager;
+    private List<Button> _allButtons = new List<Button>();
 
 
     private void Awake()
@@ -63,6 +67,13 @@ public class CheckerManager : MonoBehaviour
             currentDayText.text = "День " + currentDay.ToString() + " из " + maxDays.ToString();
             moneyText.text = "Заработано: " + currentMoney.ToString() + "$ / " + neededMoney.ToString() + "$";
             moneyAll.SetActive(true);
+            _allButtons.AddRange(FindObjectsOfType<Button>());
+            _allButtons.Remove(moneyAll.GetComponentsInChildren<Button>()[0]);
+            foreach (var button in _allButtons)
+            {
+                button.gameObject.SetActive(false);
+            }
+            
             isScene1_1 = true;
             isDayChanged = true;
             _isReady = true;
@@ -99,6 +110,12 @@ public class CheckerManager : MonoBehaviour
         if (_timer.IsFinished() && !_isTimer)
         { 
             itsTime.SetActive(true);
+            _allButtons.AddRange(FindObjectsOfType<Button>());
+            _allButtons.Remove(itsTime.GetComponentsInChildren<Button>()[0]);
+            foreach (var button in _allButtons)
+            {
+                button.gameObject.SetActive(false);
+            }
             textTimer.text = "0 сек";
             Debug.Log("Timer is finished!");
             //_timer.Reset();
@@ -129,20 +146,43 @@ public class CheckerManager : MonoBehaviour
     public void OnMoneyAll()
     {
         moneyAll.SetActive(true);
+        _allButtons.AddRange(FindObjectsOfType<Button>());
+        _allButtons.Remove(moneyAll.GetComponentsInChildren<Button>()[0]);
+        foreach (var button in _allButtons)
+        {
+            button.gameObject.SetActive(false);
+        }
     }
 
     public void OffMoneyAll()
     {
         moneyAll.SetActive(false);
+        foreach (var button in _allButtons)
+        {
+            button.gameObject.SetActive(true);
+        }
+        _allButtons.Clear();
     }
 
     public void NextAfterItsTime()
     {
         print(145);
         itsTime.SetActive(false);
+        foreach (var button in _allButtons)
+        {
+            button.gameObject.SetActive(true);
+        }
+        _allButtons.Clear();
+        
         currentDayText.text = "День " + currentDay.ToString() + " из " + maxDays.ToString();
         moneyText.text = "Заработано: " + currentMoney.ToString() + "$ / " + neededMoney.ToString() + "$";
         moneyAll.SetActive(true);
+        _allButtons.AddRange(FindObjectsOfType<Button>());
+        _allButtons.Remove(moneyAll.GetComponentsInChildren<Button>()[0]);
+        foreach (var button in _allButtons)
+        {
+            button.gameObject.SetActive(false);
+        }
         
         if (currentDay < maxDays)
         {
@@ -154,6 +194,13 @@ public class CheckerManager : MonoBehaviour
             currentDayText2.text = "День " + currentDay.ToString() + " из " + maxDays.ToString();
             moneyText2.text = "Заработано: " + currentMoney.ToString() + "$ / " + neededMoney.ToString() + "$";
             moneyAll2.SetActive(true);
+            moneyAll.SetActive(false);
+            _allButtons.AddRange(FindObjectsOfType<Button>());
+            _allButtons.Remove(moneyAll2.GetComponentsInChildren<Button>()[0]);
+            foreach (var button in _allButtons)
+            {
+                button.gameObject.SetActive(false);
+            }
             //sceneManager3.LoadScene();
         }
     }

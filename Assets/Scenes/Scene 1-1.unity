@@ -151,7 +151,7 @@ RectTransform:
   m_GameObject: {fileID: 77244726}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10234}
-  m_LocalScale: {x: 1.0000799, y: 1.0000799, z: 1.0000799}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 668061514}
@@ -821,7 +821,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -1742.9999, y: 156}
+  m_AnchoredPosition: {x: -178, y: 156}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &451656700
@@ -1996,6 +1996,7 @@ GameObject:
   - component: {fileID: 762361618}
   - component: {fileID: 762361617}
   - component: {fileID: 762361616}
+  - component: {fileID: 762361619}
   m_Layer: 5
   m_Name: Tutor Button
   m_TagString: Untagged
@@ -2140,6 +2141,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 762361613}
   m_CullTransparentMesh: 1
+--- !u!114 &762361619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762361613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa5a1a2366cec8243a363ff0ac5a7925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &838083258
 GameObject:
   m_ObjectHideFlags: 0
@@ -2348,9 +2361,9 @@ RectTransform:
   - {fileID: 1083593128}
   m_Father: {fileID: 1165094310}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 177.00012, y: 156}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -178, y: 156}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &886753665
@@ -2702,9 +2715,9 @@ RectTransform:
   - {fileID: 1240534432}
   m_Father: {fileID: 927936418}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -176, y: -173}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 151.00012, y: -173}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &927522211
@@ -3137,7 +3150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 659f9d6aae37870469cfd566cd1bed11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerDuration: 90
+  timerDuration: 100
   maxDays: 3
   currentDay: 1
   neededMoney: 200
@@ -3157,6 +3170,7 @@ MonoBehaviour:
   moneyAll2: {fileID: 1527852195}
   currentDayText2: {fileID: 114993510}
   moneyText2: {fileID: 1319667909}
+  timerGO: {fileID: 519429540}
   isSampleScene: 0
   isScene1_1: 0
   isDayChanged: 0
@@ -4685,9 +4699,9 @@ RectTransform:
   - {fileID: 1971866013}
   m_Father: {fileID: 1802546355}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 177.00012, y: 156}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -178, y: 156}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1858485498

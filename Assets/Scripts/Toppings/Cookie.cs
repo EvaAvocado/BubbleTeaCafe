@@ -11,6 +11,7 @@ namespace Toppings
         private Transform _targetItem = null; // Ссылка на предмет с тегом item
         private bool _isGame = true;
         public CookieManager cookieManager;
+        private bool _isInEndPos;
 
         private void Start()
         {
@@ -39,9 +40,10 @@ namespace Toppings
 
                 if (_targetItem != null)
                 {
+                    _isInEndPos = true;
+                    cookieManager.counter++;
                     // Если печенье в зоне предмета item, ставим его в координаты endPosition
-                    transform.DOLocalMove(endPosition, 5f).SetSpeedBased().SetEase(Ease.OutCubic);
-                    
+                    transform.DOLocalMove(endPosition, 5f).SetSpeedBased().SetEase(Ease.OutCubic).OnComplete((() => cookieManager.CountCookie()));
                 }
                 else
                 {
@@ -49,38 +51,33 @@ namespace Toppings
                     transform.DOLocalMove(_startPosition, 10f).SetSpeedBased().SetEase(Ease.OutCubic);
                     
                 }
-                
-                
             }
         }
 
         private void OnMouseDown()
         {
-            if(!_isGame) return;
+            if(!_isGame || _isInEndPos) return;
             // Начинаем перетаскивание при нажатии на печенье
             _isDragging = true;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(!_isGame) return;
+            if(!_isGame || _isInEndPos) return;
             // Проверяем, если вошли в зону предмета с тегом item
             if (collision.CompareTag("Item"))
             {
-                cookieManager._counter++;
                 _targetItem = collision.transform;
-                cookieManager.CountCookie();
             }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if(!_isGame) return;
+            if(!_isGame || _isInEndPos) return;
             // Если выходим из зоны предмета с тегом item
             if (collision.CompareTag("Item") && _targetItem == collision.transform)
             {
                 _targetItem = null;
-                cookieManager._counter--;
             }
         }
 
